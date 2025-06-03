@@ -25,12 +25,12 @@ async def start_bot():
         await set_commands()
         dp.include_router(user_router)
 
-        await notify_admins("Я запущен🥳.")
+        # await notify_admins("Я запущен🥳.")
         logger.info("Бот успешно запущен.")
     except Exception as e:
         logger.error(f"Ошибка при запуске бота: {e}")
 
 
 async def stop_bot():
-    await notify_admins("Бот остановлен. За что?😔")
+    # await notify_admins("Бот остановлен. За что?😔")
     logger.info("Бот успешно остановлен.")

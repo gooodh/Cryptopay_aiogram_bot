@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     HOST: str
     BASE_URL: str
     ADMIN_IDS: List[int]
-
+    CRYPTOPAY_TOKEN: str
     FORMAT_LOG: str = (
         "{time:YYYY-MM-DD at HH:mm:ss} | {level} | {name}:{function}:{line} - {message}"
     )
@@ -45,7 +45,7 @@ PORT = settings.PORT
 HOST = settings.HOST
 BASE_URL = settings.BASE_URL
 WEBHOOK_PATH = "/cryptopay"
-
+CRYPTOPAY_TOKEN = settings.CRYPTOPAY_TOKEN
 admins = settings.ADMIN_IDS
 log_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "log.log")
 logger.add(
