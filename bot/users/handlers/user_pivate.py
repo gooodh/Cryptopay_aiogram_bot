@@ -4,6 +4,7 @@ from aiogram.types import Message
 from aiogram.filters import Command
 from aiogram.dispatcher.router import Router
 
+from bot.config import cp
 user_router = Router()
 
 
@@ -24,10 +25,14 @@ async def cmd_start(message: Message):
         )
 
 
-# @user_router.message("update_id")
-# async def cmd_test(message: Message):
-
-#     await message.answer(invoice)
-#     await message.answer(
-#         f"amount: {invoice.amount}, asset:{invoice.asset}, invoice_id:{invoice.invoice_id}"
-#     )
+@user_router.message(Command("test"))
+async def cmd_test(message: Message):
+    logger.info("Получен запрос на создание инвойса.")
+    user_id = message.from_user.id
+    invoice = await cp.create_invoice(
+        amount="1", asset="USDT", payload=str(user_id)
+    )
+    await message.answer(f"Payment: {invoice.bot_invoice_url}")
+    await message.answer(
+        f"Amount: {invoice.amount}, Asset: {invoice.asset}, Invoice ID: {invoice.invoice_id}"
+    )

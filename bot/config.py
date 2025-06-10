@@ -7,6 +7,8 @@ from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.memory import MemoryStorage
 
+from aiosend import CryptoPay, TESTNET
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -16,6 +18,7 @@ class Settings(BaseSettings):
     HOST: str
     BASE_URL: str
     ADMIN_IDS: List[int]
+    FROM_CHAT_ID: str
     CRYPTOPAY_TOKEN: str
     FORMAT_LOG: str = (
         "{time:YYYY-MM-DD at HH:mm:ss} | {level} | {name}:{function}:{line} - {message}"
@@ -45,7 +48,15 @@ PORT = settings.PORT
 HOST = settings.HOST
 BASE_URL = settings.BASE_URL
 WEBHOOK_PATH = "/cryptopay"
+from_chat_id = settings.FROM_CHAT_ID
+
+# Инициализируем CryptoPay
 CRYPTOPAY_TOKEN = settings.CRYPTOPAY_TOKEN
+cp = CryptoPay(
+    CRYPTOPAY_TOKEN,
+    network=TESTNET,
+)
+
 admins = settings.ADMIN_IDS
 log_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "log.log")
 logger.add(
